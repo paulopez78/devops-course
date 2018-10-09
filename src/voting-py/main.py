@@ -22,18 +22,19 @@ def get_votes():
     return jsonify(votes), 200
 
 
-def start_voting(options):
-    votes = options
+def start_voting(data):
+    votes.update({topic: 0 for topic in data['topics']})
     return jsonify(votes), 200
 
 
-def vote(option):
+def vote(data):
+    option = data['topic']
     votes[option] = votes[option] + 1
     return jsonify(votes), 200
 
 
 def finish_voting():
-    winner = max(votes)
+    winner = max(votes, key=votes.get)
     return winner, 200
 
 
