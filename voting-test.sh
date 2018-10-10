@@ -1,32 +1,20 @@
-http_client(){
-  api="http://localhost:8081/vote"
-  curl \
-    --request $1 \
-    --data "$2" \
-    --url $api \
-    --header 'Content-Type: application/json' 
-}
+set -e
+. tests.sh $1
 
-start_voting(){
-  http_client POST "$1"
-}
+voting_options="python bash go"
+voted_options="python go bash bash"
+expected_winner="bash"
 
-vote(){
-  http_client PUT "$1"
-}
+echo "Given [$voting_options] voting options"
+echo "When voted for [$voted_options]"
+echo "Then winner is $expected_winner"
+ 
+start_voting "$voting_options"
 
-finish_voting(){
-  http_client DELETE "$1"
-}
-
-get_votes(){
-  http_client GET 
-}
-
-start_voting '{"topics": ["python","bash", "go"]}'
-for topic in python bash go go
+for topic in $voted_options
 do
-  vote '{"topic": "'$topic'"}'
+  vote $topic
 done
+
 winner=$(finish_voting)
-echo "The winner is $winner"
+assert_equal $expected_winner $winner 
