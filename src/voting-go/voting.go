@@ -6,11 +6,11 @@ import (
 	"github.com/labstack/echo"
 )
 
-type votingTopics struct {
+type VotingOptions struct {
 	Topics []string `json:"topics"`
 }
 
-type voteTopic struct {
+type Vote struct {
 	Topic string `json:"topic"`
 }
 
@@ -23,7 +23,7 @@ func main() {
 	})
 
 	e.POST("/vote", func(c echo.Context) error {
-		topics := new(votingTopics)
+		topics := new(VotingOptions)
 		if err := c.Bind(topics); err != nil {
 			return err
 		}
@@ -36,7 +36,7 @@ func main() {
 	})
 
 	e.PUT("/vote", func(c echo.Context) error {
-		topic := new(voteTopic)
+		topic := new(Vote)
 		if err := c.Bind(&topic); err != nil {
 			return err
 		}
