@@ -6,10 +6,16 @@ import (
 	"github.com/labstack/echo"
 )
 
+type votingTopics struct {
+	Topics []string `json:"topics"`
+}
+
+type voteTopic struct {
+	Topic string `json:"topic"`
+}
+
 func main() {
 	votes := make(map[string]int)
-	votes[".netcore"] = 1
-	votes["golang"] = 2
 
 	e := echo.New()
 	e.GET("/vote", func(c echo.Context) error {
@@ -17,12 +23,40 @@ func main() {
 	})
 
 	e.POST("/vote", func(c echo.Context) error {
-		m := echo.Map{}
-		if err := c.Bind(&m); err != nil {
+		topics := new(votingTopics)
+		if err := c.Bind(topics); err != nil {
 			return err
 		}
-		return c.JSON(http.StatusOK, m)
+
+		for _, val := range topics.Topics {
+			votes[val] = 0
+		}
+
+		return c.JSON(http.StatusOK, votes)
 	})
 
-	e.Logger.Fatal(e.Start(":1323"))
+	e.PUT("/vote", func(c echo.Context) error {
+		topic := new(voteTopic)
+		if err := c.Bind(&topic); err != nil {
+			return err
+		}
+		votes[topic.Topic]++
+		return c.JSON(http.StatusOK, votes)
+	})
+
+	e.DELETE("/vote", func(c echo.Context) error {
+		var winner string
+		for topic := range votes {
+			winner = topic
+			break
+		}
+		for topic, count := range votes {
+			if count > votes[winner] {
+				winner = topic
+			}
+		}
+		return c.JSON(http.StatusOK, winner)
+	})
+
+	e.Logger.Fatal(e.Start(":8081"))
 }

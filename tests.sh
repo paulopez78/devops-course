@@ -28,7 +28,10 @@ get_votes(){
 }
 
 assert_equal(){
-  if [ "$1" = "$2" ]; then
+  expected=$1
+  actual=${2//\"/}
+
+  if [ "$expected" = "$actual" ]; then
     echo "Test passed!"
     return 0
   else
