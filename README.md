@@ -1,42 +1,40 @@
 # Devops course 
 
-## Basic devops tooling: scripting and programming languages
+## Session 1: Basic devops tooling: scripting and programming languages
   * Bash
   * Git
   * Python
   * Go
 
 ### Lab 1: scripting languages
-  Create basic API and automate tasks with bash, python and go
+  Create basic Voting API and automate tests with bash, python and go
 
-## Public cloud providers: Infrastructure as code
-  * AWS
+## Session 2: Public cloud providers: Infrastructure as code
+  * AWS 
   * Azure
   * Google Cloud
 
 ### Lab 2: Infrastructure as code
-  Terraform resources in AWS free tier
+  Create infrastructure for runnning the app with terraform
 
-## Containers
+## Session 3 and 4: Containers
   * Virtual Machines and Containers
   * Docker
   * Images and Containers
-
-### Lab 3: Dockerize your application
-  Dockerfile, build and push
-
-## CI/CD with containers
   * Docker compose: run local infra
   * Integration tests with docker
   * Pack, Test and Run wih docker
 
-### Lab 4: Build a CI/CD pipeline with docker
+### Lab 3: Dockerize your application
+  Dockerfile, build and push
+
+### Lab 4: Build an app with docker compose
   Docker compose with infra, tests and apps 
 
-## Container Orchestrators
+## Session 5: Container Orchestrators
   * Self healing and auto scaling applications
   * Kubernetes
   * EKS, AKS, GKE
 
 ### Lab 5: Deploy the app to kubernetes
-  kubectl for running and exposing the app
+  Run example app locally and in Azure AKS

@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 type VotingOptions struct {
@@ -18,6 +19,12 @@ func main() {
 	votes := make(map[string]int)
 
 	e := echo.New()
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
+	}))
+
 	e.GET("/vote", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, votes)
 	})

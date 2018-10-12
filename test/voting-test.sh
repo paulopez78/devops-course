@@ -1,5 +1,5 @@
 set -e
-. tests.sh $1
+. common.sh $1
 
 voting_options="python bash go"
 voted_options="python go bash bash"
