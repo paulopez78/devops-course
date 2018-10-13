@@ -4,7 +4,7 @@
 
     function render(state) {
         document.getElementById('errors').innerHTML = '';
-        state.error 
+        state.error
             ? document.getElementById('errors').innerText = state.error
             : renderUI();
 
@@ -12,22 +12,20 @@
             renderAdmin();
             renderVoting();
 
-            function renderAdmin()
-            {
+            function renderAdmin() {
                 const isAdmin = window.location.search.indexOf('admin') !== -1;
                 if (isAdmin) {
-                    document.getElementById('votingCommands').style.visibility = 'visible'; 
+                    document.getElementById('votingCommands').style.visibility = 'visible';
                     addEventHandler('start',
                         () => votingApi.start(document.getElementById('topics').value.split(','))
-                        .then(render));
+                            .then(render));
                     addEventHandler('finish',
                         () => votingApi.finish()
-                        .then(render));
+                            .then(render));
                 }
             }
 
-            function renderVoting()
-            {
+            function renderVoting() {
                 document.getElementById('votingTopics').innerHTML = '';
                 for (var topic in state.votes) {
                     document.getElementById('votingTopics').innerHTML +=
@@ -35,10 +33,9 @@
                             ${topic}, votes: ${state.votes[topic]}
                         </div>`;
                 }
-                for (var topic in state.votes) 
-                {
+                for (var topic in state.votes) {
                     (t => addEventHandler(t, () => votingApi.vote(t).then(render)))
-                    (topic);
+                        (topic);
                 }
             }
         }

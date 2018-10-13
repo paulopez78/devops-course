@@ -9,7 +9,7 @@ const votingApi = (function () {
             .then(r => r.json());
 
     const start = (topics) =>
-        client(apiUrl, 'POST', JSON.stringify(topics))
+        client(apiUrl, 'POST', JSON.stringify({ topics: topics }))
             .then(r => r.json());
 
     const finish = () =>
@@ -17,11 +17,11 @@ const votingApi = (function () {
             .then(r => r.json());
 
     const vote = (topic) =>
-        client(apiUrl, 'PUT', `"${topic}"`)
+        client(apiUrl, 'PUT', JSON.stringify({ topic: topic }))
             .then(r => r.json());
 
     const subscribe = (action) => {
-        const webSocket = new WebSocket(`ws://${window.location.host}/ws`);
+        const webSocket = new WebSocket(`ws://${window.location.hostname}:8081/ws`);
         webSocket.onmessage = ({ data }) =>
             data.indexOf('Connected') === -1 && action(JSON.parse(data));
     }
