@@ -15,7 +15,7 @@ func main() {
 	}))
 
 	api := "/vote"
-	e.GET(api, GetVotes)
+	e.GET(api, Get)
 	e.POST(api, StartVoting)
 	e.PUT(api, Vote)
 	e.DELETE(api, FinishVoting)

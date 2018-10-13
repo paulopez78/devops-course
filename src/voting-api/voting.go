@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	votes = make(map[string]int)
-	ws    *websocket.Conn
+	state     = VotingState{make(map[string]int), ""}
+	publisher *websocket.Conn
 )
 
 type VotingOptions struct {
@@ -26,8 +26,8 @@ type VotingState struct {
 	Winner string         `json:"winner"`
 }
 
-func GetVotes(c echo.Context) error {
-	return c.JSON(http.StatusOK, VotingState{votes, ""})
+func Get(c echo.Context) error {
+	return PublishState(c)
 }
 
 func StartVoting(c echo.Context) error {
@@ -36,13 +36,12 @@ func StartVoting(c echo.Context) error {
 		return err
 	}
 
+	state = VotingState{make(map[string]int), ""}
 	for _, val := range topics.Topics {
-		votes[val] = 0
+		state.Votes[val] = 0
 	}
 
-	SendVotes(c)
-
-	return c.JSON(http.StatusOK, VotingState{votes, ""})
+	return PublishState(c)
 }
 
 func Vote(c echo.Context) error {
@@ -50,34 +49,36 @@ func Vote(c echo.Context) error {
 	if err := c.Bind(&topic); err != nil {
 		return err
 	}
-	votes[topic.Topic]++
-	return c.JSON(http.StatusOK, VotingState{votes, ""})
+	state.Votes[topic.Topic]++
+	return PublishState(c)
 }
 
 func FinishVoting(c echo.Context) error {
 	var winner string
-	for topic := range votes {
+	for topic := range state.Votes {
 		winner = topic
 		break
 	}
-	for topic, count := range votes {
-		if count > votes[winner] {
+	for topic, count := range state.Votes {
+		if count > state.Votes[winner] {
 			winner = topic
 		}
 	}
-
-	return c.JSON(http.StatusOK, VotingState{votes, winner})
+	state.Winner = winner
+	return PublishState(c)
 }
 
-func SendVotes(c echo.Context) {
-	err := websocket.Message.Send(ws, votes)
+func PublishState(c echo.Context) error {
+	err := websocket.Message.Send(publisher, state)
 	if err != nil {
 		c.Logger().Error(err)
 	}
+	return c.JSON(http.StatusOK, state)
 }
 
 func StartWebSocket(c echo.Context) error {
 	websocket.Handler(func(ws *websocket.Conn) {
+		publisher = ws
 		defer ws.Close()
 	}).ServeHTTP(c.Response(), c.Request())
 	return nil
