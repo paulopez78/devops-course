@@ -19,7 +19,7 @@ func main() {
 	e.POST(api, StartVoting)
 	e.PUT(api, Vote)
 	e.DELETE(api, FinishVoting)
-	e.GET("/ws", StartWebSocket)
+	e.GET("/ws", serveWs)
 
 	e.Logger.Fatal(e.Start(":8081"))
 }

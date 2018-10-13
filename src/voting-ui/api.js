@@ -22,8 +22,9 @@ const votingApi = (function () {
 
     const subscribe = (action) => {
         const webSocket = new WebSocket(`ws://${window.location.hostname}:8081/ws`);
-        webSocket.onmessage = ({ data }) =>
-            data.indexOf('Connected') === -1 && action(JSON.parse(data));
+        webSocket.onmessage = ({ data }) => {
+            action(JSON.parse(data));
+        }
     }
 
     return {

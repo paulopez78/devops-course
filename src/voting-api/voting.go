@@ -3,14 +3,11 @@ package main
 import (
 	"net/http"
 
-	"golang.org/x/net/websocket"
-
 	"github.com/labstack/echo"
 )
 
 var (
-	state     = VotingState{make(map[string]int), ""}
-	publisher *websocket.Conn
+	state = VotingState{make(map[string]int), ""}
 )
 
 type VotingOptions struct {
@@ -27,7 +24,7 @@ type VotingState struct {
 }
 
 func Get(c echo.Context) error {
-	return PublishState(c)
+	return c.JSON(http.StatusOK, state)
 }
 
 func StartVoting(c echo.Context) error {
@@ -69,17 +66,6 @@ func FinishVoting(c echo.Context) error {
 }
 
 func PublishState(c echo.Context) error {
-	err := websocket.Message.Send(publisher, state)
-	if err != nil {
-		c.Logger().Error(err)
-	}
+	sendMessage(state)
 	return c.JSON(http.StatusOK, state)
-}
-
-func StartWebSocket(c echo.Context) error {
-	websocket.Handler(func(ws *websocket.Conn) {
-		publisher = ws
-		defer ws.Close()
-	}).ServeHTTP(c.Response(), c.Request())
-	return nil
 }
