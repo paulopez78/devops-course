@@ -2,9 +2,9 @@
 
 ## Download and install:
 * [Visual Studio Code](https://code.visualstudio.com/download)
-  * Go, Python, Docker plugins
-* [Docker](https://www.docker.com/products/docker-desktop)
+  * Plugins: vscode-icons, Go, Python, Docker 
 * [Git](https://git-scm.com/downloads)
+* [Docker](https://www.docker.com/products/docker-desktop)
 * [Python](https://www.python.org/downloads/)
 * [Golang](https://golang.org/dl/)
 * [Node](https://nodejs.org/)
