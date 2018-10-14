@@ -16,5 +16,5 @@ do
   vote $topic
 done
 
-winner=$(finish_voting)
+winner=$(finish_voting | jq '.winner')
 assert_equal $expected_winner $winner 
