@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo"
@@ -13,25 +15,6 @@ var (
 	upgrader = websocket.Upgrader{CheckOrigin: func(r *http.Request) bool { return true }}
 	clients  []*websocket.Conn
 )
-
-func main() {
-
-	e := echo.New()
-
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"*"},
-		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
-	}))
-
-	api := "/vote"
-	e.GET(api, get)
-	e.POST(api, startVoting)
-	e.PUT(api, vote)
-	e.DELETE(api, finishVoting)
-	e.GET("/ws", serveWs)
-
-	e.Logger.Fatal(e.Start(":8081"))
-}
 
 func sendMessage(value interface{}) {
 	for _, client := range clients {
@@ -47,4 +30,30 @@ func serveWs(c echo.Context) error {
 	}
 	clients = append(clients, conn)
 	return nil
+}
+
+func main() {
+	e := echo.New()
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"*"},
+	}))
+
+	api := "/vote"
+	e.GET(api, get)
+	e.POST(api, startVoting)
+	e.PUT(api, vote)
+	e.DELETE(api, finishVoting)
+	e.GET("/ws", serveWs)
+
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", getenv("VOTING_API_PORT", "8081"))))
+}
+
+func getenv(key, fallback string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return fallback
+	}
+	return value
 }

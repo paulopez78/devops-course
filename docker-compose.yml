@@ -1,0 +1,16 @@
+version: "3.6"
+
+services:
+  voting-api:
+    image: voting-api
+    build:
+      context: ./src/voting-api
+    ports:
+      - 8081:80
+
+  voting-ui:
+    image: voting-ui
+    build:
+      context: ./src/voting-ui
+    ports:
+      - 80:8080
