@@ -7,50 +7,50 @@ import (
 )
 
 var (
-	state = VotingState{make(map[string]int), ""}
+	state = votingState{make(map[string]int), ""}
 )
 
-type VotingOptions struct {
+type votingOptions struct {
 	Topics []string `json:"topics"`
 }
 
-type VoteOption struct {
+type voteOption struct {
 	Topic string `json:"topic"`
 }
 
-type VotingState struct {
+type votingState struct {
 	Votes  map[string]int `json:"votes"`
 	Winner string         `json:"winner"`
 }
 
-func Get(c echo.Context) error {
+func get(c echo.Context) error {
 	return c.JSON(http.StatusOK, state)
 }
 
-func StartVoting(c echo.Context) error {
-	topics := new(VotingOptions)
+func startVoting(c echo.Context) error {
+	topics := new(votingOptions)
 	if err := c.Bind(topics); err != nil {
 		return err
 	}
 
-	state = VotingState{make(map[string]int), ""}
+	state = votingState{make(map[string]int), ""}
 	for _, val := range topics.Topics {
 		state.Votes[val] = 0
 	}
 
-	return PublishState(c)
+	return publishState(c)
 }
 
-func Vote(c echo.Context) error {
-	topic := new(VoteOption)
+func vote(c echo.Context) error {
+	topic := new(voteOption)
 	if err := c.Bind(&topic); err != nil {
 		return err
 	}
 	state.Votes[topic.Topic]++
-	return PublishState(c)
+	return publishState(c)
 }
 
-func FinishVoting(c echo.Context) error {
+func finishVoting(c echo.Context) error {
 	var winner string
 	for topic := range state.Votes {
 		winner = topic
@@ -62,10 +62,10 @@ func FinishVoting(c echo.Context) error {
 		}
 	}
 	state.Winner = winner
-	return PublishState(c)
+	return publishState(c)
 }
 
-func PublishState(c echo.Context) error {
+func publishState(c echo.Context) error {
 	sendMessage(state)
 	return c.JSON(http.StatusOK, state)
 }
