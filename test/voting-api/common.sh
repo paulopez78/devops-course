@@ -12,11 +12,11 @@ http_client(){
 start_voting(){
   options=${1// /\",\"}
   echo $options
-  http_client POST '{"topics":["'$options'"]}'
+  http_client POST '{"topics":["'$options'"]}' > /dev/null
 }
 
 vote(){
-  http_client PUT '{"topic": "'$1'"}'
+  http_client PUT '{"topic": "'$1'"}' > /dev/null
 }
 
 finish_voting(){
