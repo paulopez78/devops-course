@@ -11,7 +11,6 @@ http_client(){
 
 start_voting(){
   options=${1// /\",\"}
-  echo $options
   http_client POST '{"topics":["'$options'"]}' > /dev/null
 }
 
@@ -33,9 +32,9 @@ assert_equal(){
 
   if [ "$expected" = "$actual" ]; then
     echo "Test passed!"
-    return 0
+    exit 0
   else
     echo "Test failed"
-    return -1
+    exit -1
   fi
 }
