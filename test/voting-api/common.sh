@@ -15,7 +15,7 @@ start_voting(){
 }
 
 vote(){
-  http_client PUT '{"topic": "'$1'"}' > /dev/null
+  http_client PUT '{"topic": "'$1'"}' > /dev/nul
 }
 
 finish_voting(){
@@ -29,12 +29,10 @@ get_votes(){
 assert_equal(){
   expected=$1
   actual=${2//\"/}
-
   if [ "$expected" = "$actual" ]; then
     echo "Test passed!"
-    exit 0
   else
     echo "Test failed"
-    exit -1
+    return 1
   fi
 }
