@@ -13,4 +13,4 @@ services:
     build:
       context: ./src/voting-ui
     ports:
-      - 80:8080
+      - 8080:8080
