@@ -6,4 +6,4 @@ RUN npm install http-server -g
 WORKDIR /app
 
 COPY . .
-ENTRYPOINT [ "http-server"]
+ENTRYPOINT [ "http-server", "-p", "80"]
