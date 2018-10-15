@@ -4,8 +4,8 @@ FROM golang:alpine AS builder
 RUN apk add --no-cache git
 
 WORKDIR /src
-COPY deps .
-RUN ./deps
+COPY deps.sh .
+RUN ./deps.sh
 
 COPY . .
 RUN go build -o voting-api
