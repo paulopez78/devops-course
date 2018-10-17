@@ -15,7 +15,7 @@ start_voting(){
 }
 
 vote(){
-  http_client PUT '{"topic": "'$1'"}' > /dev/nul
+  http_client PUT '{"topic": "'$1'"}' > /dev/null
 }
 
 finish_voting(){
