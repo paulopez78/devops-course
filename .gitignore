@@ -1,3 +1,4 @@
 .vscode
 env
-*log.txt
+*errors.txt
+*logs.txt

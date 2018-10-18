@@ -1,7 +1,11 @@
-# https://realpython.com/python-virtual-environments-a-primer/
-python -m venv env
-source env/bin/activate || source env/Scripts/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt > /dev/null
+#!/bin/bash
+install_venv(){
+  python -m venv env
+  . env/bin/activate || . env/Scripts/activate
+  python -m pip install --upgrade pip
+  pip install -r requirements.txt 
+}
 
-python main.py
+test_py() {
+  python main.py
+}

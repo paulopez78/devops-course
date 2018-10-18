@@ -1,20 +1,65 @@
-set -e
-. common.sh $1
+#!/bin/bash
+url=${1:-"http://localhost:8081/vote"}
 
-voting_options="python bash go"
-voted_options="python go bash bash"
-expected_winner="bash"
+http_client(){
+  curl \
+    --silent \
+    --request $1 \
+    --data "$2" \
+    --url $url \
+    --header 'Content-Type: application/json' 
+}
 
-echo "Given [$voting_options] voting options"
-echo "When voted for [$voted_options]"
-echo "Then winner is $expected_winner"
- 
-start_voting "$voting_options"
+start_voting(){
+  options=${1// /\",\"}
+  http_client POST '{"topics":["'$options'"]}' > /dev/null
+}
 
-for topic in $voted_options
-do
-  vote $topic
-done
+vote(){
+  http_client PUT '{"topic": "'$1'"}' > /dev/null
+}
 
-winner=$(finish_voting | jq '.winner')
-assert_equal $expected_winner $winner 
+finish_voting(){
+  http_client DELETE
+}
+
+get_votes(){
+  http_client GET 
+}
+
+assert_equal(){
+  expected=$1
+  actual=${2//\"/}
+  if [ "$expected" = "$actual" ]; then
+    echo "Test passed!"
+  else
+    echo "Test failed"
+    return 1
+  fi
+}
+
+test_bash(){
+  voting_options="python bash go"
+  voted_options="python go bash bash"
+  expected_winner="bash"
+
+  echo "Given [$voting_options] voting options"
+  echo "When voted for [$voted_options]"
+  echo "Then winner is $expected_winner"
+  
+  start_voting "$voting_options"
+
+  for topic in $voted_options
+  do
+    vote $topic
+  done
+
+  winner=$(finish_voting | jq '.winner')
+  assert_equal $expected_winner $winner 
+}
+
+main(){
+  test_bash
+}
+
+if [ "$1" == 'main' ]; then main; fi
