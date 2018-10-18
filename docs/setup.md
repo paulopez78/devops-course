@@ -10,6 +10,7 @@
 * [Node](https://nodejs.org/)
 * [HomeBrew (mac only)](https://brew.sh/)
 * [Chocolatey (windows only)](https://chocolatey.org/)
+* [jq](https://stedolan.github.io/jq/download/)
 
 ## Signup for:
 * [Dockerhub](https://dockerhub.com)
