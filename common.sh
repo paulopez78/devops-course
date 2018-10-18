@@ -1,7 +1,7 @@
 #!/bin/bash
 restart(){
     program=$1
-    pids=$(ps aux | grep $program | awk '{ print $2 }')
+    pkill -9 $1 || pids=$(ps aux | grep $program | awk '{ print $1 }')
     if [ -n "$pids" ]; then
         for id in $pids
         do
