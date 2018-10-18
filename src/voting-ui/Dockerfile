@@ -1,7 +1,7 @@
 FROM node:alpine 
 
-RUN npm install http-server -g
-
+COPY deps.sh .
+RUN ./deps.sh main
 
 WORKDIR /app
 

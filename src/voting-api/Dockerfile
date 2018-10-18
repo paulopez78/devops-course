@@ -5,7 +5,7 @@ RUN apk add --no-cache git
 
 WORKDIR /src
 COPY deps.sh .
-RUN ./deps.sh
+RUN ./deps.sh main
 
 COPY . .
 RUN go build -o voting-api

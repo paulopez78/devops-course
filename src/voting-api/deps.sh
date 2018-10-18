@@ -1,6 +1,5 @@
 
 #!/bin/bash
-
 get_go_deps(){
   go get github.com/labstack/echo
   go get github.com/labstack/echo/middleware

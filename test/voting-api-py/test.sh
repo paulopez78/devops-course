@@ -5,7 +5,3 @@ install_venv(){
   python -m pip install --upgrade pip
   pip install -r requirements.txt 
 }
-
-test_py() {
-  python main.py
-}

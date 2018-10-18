@@ -38,7 +38,7 @@ assert_equal(){
   fi
 }
 
-test_bash(){
+test(){
   voting_options="python bash go"
   voted_options="python go bash bash"
   expected_winner="bash"
@@ -59,7 +59,7 @@ test_bash(){
 }
 
 main(){
-  test_bash
+  test
 }
 
 if [ "$1" == 'main' ]; then main; fi

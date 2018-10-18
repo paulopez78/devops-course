@@ -1,29 +1,31 @@
 #!/bin/bash
 . common.sh
 . ./src/voting-api/deps.sh
+. ./src/voting-ui/deps.sh
 . ./test/voting-api/test.sh
 . ./test/voting-api-py/test.sh
 
 run_pipeline(){
   # build and run voting api
   pushd ./src/voting-api/
+  get_go_deps
   go build -o voting-api || return 1
   restart voting-api 
   popd
 
   # build and run voting ui
   pushd ./src/voting-ui/
-  npm install http-server -g
+  npm_install
   restart http-server -p 8080 
   popd
 
   # run tests with bash
-  test_bash || return 1
+  test || return 1
 
   # run tests with python
   pushd ./test/voting-api-py/
   install_venv
-  test_py || return 1
+  python main.py || return 1
   popd
 }
 
