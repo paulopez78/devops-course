@@ -6,4 +6,4 @@ RUN ./deps.sh main
 WORKDIR /app
 
 COPY . .
-ENTRYPOINT [ "http-server", "-p", "80"]
+ENTRYPOINT [ "http-server", "-p", "8080" ]

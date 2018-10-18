@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 url=${1:-"http://localhost:8081/vote"}
 
 http_client(){
