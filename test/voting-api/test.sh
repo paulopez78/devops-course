@@ -1,5 +1,4 @@
 #!/bin/sh
-url=${1:-"http://localhost:8081/vote"}
 
 http_client(){
   curl \
@@ -62,4 +61,5 @@ main(){
   test
 }
 
+url=${VOTING_API:-"http://localhost:8081/vote"}
 if [ "$1" == 'main' ]; then main; fi

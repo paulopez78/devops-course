@@ -5,6 +5,8 @@ services:
     image: voting-api
     build:
       context: ./src/voting-api
+    environment: 
+      REDIS: "redis:6379"
     ports:
       - 8081:80
 
@@ -19,6 +21,8 @@ services:
     image: voting-api-tests
     build:
       context: ./test/voting-api
+    environment: 
+      VOTING_API: "http://voting-api/vote"
 
   redis:
     image: redis
