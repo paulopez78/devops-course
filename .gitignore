@@ -2,3 +2,5 @@
 env
 *errors.txt
 *logs.txt
+bin
+voting-api

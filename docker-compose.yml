@@ -19,3 +19,8 @@ services:
     image: voting-api-tests
     build:
       context: ./test/voting-api
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379

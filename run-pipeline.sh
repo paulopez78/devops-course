@@ -22,11 +22,11 @@ run_pipeline(){
   # run tests with bash
   test || return 1
 
-  # run tests with python
-  pushd ./test/voting-api-py/
-  install_venv
-  python main.py || return 1
-  popd
+  # # run tests with python
+  # pushd ./test/voting-api-py/
+  # install_venv
+  # python main.py || return 1
+  # popd
 }
 
 if run_pipeline > logs.txt 2> errors.txt ; then
