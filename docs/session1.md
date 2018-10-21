@@ -1,13 +1,22 @@
-## Session 1: Basic tooling
+## Session 1: Editors and scripting languages
 
-### Editors and scripting languages
-  * VS Code
+  * VS Code Editor
     * Plugins and Settings
-  * Git (basic commands)
-  * Bash (gitbash for windows)
+
+  * Git (basic commands and github setup)
+    * Basic commands crash course
+    * setup repo and remote origin
+
+  * Run the context voting application
+    * Go (voting api)
+
+  * Bash (or gitbash for windows)
+    * Basic commands crash course
+    * write automated test with curl and jq
+
   * Python (virtual environments)
-  * Go (voting api)
+    * Basic commands crash course
 
 ### Lab 1: scripting languages
-  Create basic Voting API and automate tests with bash and python 
-  Homework: Write basic API testing and automation with python
+  Create fully automated Voting APP pipeline 
+  Homework: Write basic API and automation tests with python
