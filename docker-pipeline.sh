@@ -47,17 +47,19 @@ push_images(){
   done
 }
 
+run_pipeline(){
+  images="voting-ui voting-api"
+  network="voting-app"
+
+  create_network
+  run_redis
+  build_run_votingapp || return 1
+  run_tests || return 1
+  push_images || return 1
+}
+
 set -e
-
-images="voting-ui voting-api"
-network="voting-app"
-
-create_network
-run_redis
-build_run_votingapp
-
-if run_tests; then
-    push_images
+if run_pipeline; then
     echo "Build finished succesfully!"
 else
     echo "Build failed!" 

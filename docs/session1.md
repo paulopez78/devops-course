@@ -4,7 +4,7 @@
     * Plugins and Settings
 
   * Git (basic commands and github setup)
-    * Basic commands crash course
+    * Basic commands crash course <https://www.katacoda.com/courses/git>
     * setup repo and remote origin
 
   * Run the context voting application
@@ -18,5 +18,5 @@
     * Basic commands crash course
 
 ### Lab 1: scripting languages
-  Create fully automated Voting APP pipeline 
-  Homework: Write basic API and automation tests with python
+  Create fully automated Voting APP pipeline with python and bash
+  Homework: Rewrite the basic API with integration tests with python

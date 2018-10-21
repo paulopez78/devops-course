@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   voting-api:
-    image: voting-api
+    image: ${REGISTRY}/voting-api
     build:
       context: ./src/voting-api
     environment: 
@@ -11,14 +11,14 @@ services:
       - 8081:80
 
   voting-ui:
-    image: voting-ui
+    image: ${REGISTRY}/voting-ui
     build:
       context: ./src/voting-ui
     ports:
       - 8080:80
 
   voting-api-tests:
-    image: voting-api-tests
+    image: ${REGISTRY}/voting-api-tests
     build:
       context: ./test/voting-api
     environment: 
