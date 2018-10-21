@@ -3,7 +3,6 @@
 . ./src/voting-api/deps.sh
 . ./src/voting-ui/deps.sh
 . ./test/voting-api/test.sh
-. ./test/voting-api-py/test.sh
 
 run_pipeline(){
   # build and run voting api
@@ -21,12 +20,6 @@ run_pipeline(){
 
   # run tests with bash
   test || return 1
-
-  # # run tests with python
-  # pushd ./test/voting-api-py/
-  # install_venv
-  # python main.py || return 1
-  # popd
 }
 
 if run_pipeline > logs.txt 2> errors.txt ; then
