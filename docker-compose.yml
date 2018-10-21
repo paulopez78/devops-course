@@ -15,7 +15,7 @@ services:
     build:
       context: ./src/voting-ui
     ports:
-      - 8080:8080
+      - 8080:80
 
   voting-api-tests:
     image: voting-api-tests
