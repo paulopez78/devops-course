@@ -12,7 +12,6 @@ run_redis(){
 }
 
 build_run_votingapp(){
-  local images="voting-ui voting-api"
   port=8080
 
   for image in $images
@@ -39,7 +38,18 @@ run_tests(){
     sh -c "./test.sh main"
 }
 
+push_images(){
+  for image in $images
+  do
+    registry_image=${REGISTRY:-'local'}/$image
+    docker tag $image $registry_image    
+    docker push $registry_image
+  done
+}
+
 set -e
+
+images="voting-ui voting-api"
 network="voting-app"
 
 create_network
@@ -47,6 +57,7 @@ run_redis
 build_run_votingapp
 
 if run_tests; then
+    push_images
     echo "Build finished succesfully!"
 else
     echo "Build failed!" 
