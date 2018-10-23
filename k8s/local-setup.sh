@@ -29,4 +29,11 @@ deploy(){
       --namespace $namespace
     kubeclt expose deploy $deploy --port 80 -type=NodePort
   done
+
+  # deploy redis
+  kubectl run redis 
+    --image=redis \
+    --port 6379 \
+    --namespace $namespace
+  kubeclt expose deploy redis --port 6379 
 }
