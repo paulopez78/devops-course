@@ -13,13 +13,13 @@
 * [jq](https://stedolan.github.io/jq/download/)
 
 ## Signup for:
-* [Dockerhub](https://dockerhub.com)
+* [Dockerhub](https://hub.docker.com)
 * [Github](https://github.com)
 
-## Students Access (no credit card)
+## Students Access 
 * [Azure free account](https://azure.microsoft.com/en-us/education/)
 * [AWS free account](https://aws.amazon.com/education/awseducate/)
 
-## Free Access (requires credit card)
+## Free Access 
 * [Azure free account](https://my.visualstudio.com/benefits)
 * [AWS free account](https://aws.amazon.com/es/free/)
