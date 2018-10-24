@@ -15,5 +15,12 @@
 ## Signup for:
 * [Dockerhub](https://dockerhub.com)
 * [Github](https://github.com)
+
+## Students Access (no credit card)
+* [Azure free account](https://azure.microsoft.com/en-us/education/)
+* [AWS free account](https://aws.amazon.com/education/awseducate/)
+
+
+## Free Access (requires credit card)
 * [Azure free account](https://my.visualstudio.com/benefits)
 * [AWS free account](https://aws.amazon.com/es/free/)
